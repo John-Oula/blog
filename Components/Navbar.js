@@ -27,10 +27,10 @@ const Navbar = ({nav}) => {
 
             <Flex flexDirection={`row`}>
                 {
-                    nav?.map((each) =>{
+                    nav?.map((each,index) =>{
                         return(
 
-                            <Flex   borderColor={`white`} borderLeftWidth={`0.5px`} borderRightWidth={`0.5px`} pl={`7`} pr={`7`} bgColor={`#0c3344`} justifyContent={`center`} alignItems={'center'} color={`white`}>
+                            <Flex key={each._id + index.toString() }  borderColor={`white`} borderLeftWidth={`0.5px`} borderRightWidth={`0.5px`} pl={`7`} pr={`7`} bgColor={`#0c3344`} justifyContent={`center`} alignItems={'center'} color={`white`}>
 
                                 <Box p={2}>
                                     <CheckCircleIcon />

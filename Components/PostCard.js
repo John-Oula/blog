@@ -1,40 +1,41 @@
 import React from 'react';
-import {Box, Button, Heading, Image} from "@chakra-ui/react";
+import {Box, Button, Heading, Image, Text} from "@chakra-ui/react";
+import {PortableText, urlFor} from "../sanity";
 
-function PostCard(props) {
-
-    const post = {
-        imageUrl: 'https://bit.ly/2Z4KKcF',
-        imageAlt: 'Rear view of modern home with pool',
-
-        title: 'Modern home in city center in the heart of historic Los Angeles',
-        content: '            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Adipisci cum deserunt eaque fugit incidunt iste\n' +
-            '            modi perferendis quae saepe sint. Autem cumque doloremque esse excepturi incidunt magni nemo praesentium\n' +
-            '            voluptatibus.',
-
-    }
+function PostCard({post}) {
 
     return (
         <>
 
-            <Box maxW='xl'  borderWidth='1px' overflow='hidden'>
-                <Image src={post.imageUrl} alt={post.imageAlt}/>
+            {
+                post.map(each =>{
+                    if (each?.position === 1){
 
-                <Box bgColor={`white`}>
-                    <Box fontWeight='semibold' as='h3' lineHeight='tight'  bgColor={`#0c3344`} color={`white`} p={5}>
-                        <Heading as='h4' size='md'>
-                            {post.title}
-                        </Heading>
-                    </Box>
+                        return(
+                            <Box maxW='xl' key={each._id } borderWidth='1px' overflow='hidden'>
+                                <Image src={urlFor(each.image).url()} width={`500px`} h={`auto`} />
 
-                    <Box p={3} >
-                        {post.content}
+                                <Box bgColor={`white`}>
+                                    <Box fontWeight='semibold' as='h3' lineHeight='tight'  bgColor={`#0c3344`} color={`white`} p={5}>
+                                        <Heading as='h4' size='md'>
+                                            {each?.title}
+                                        </Heading>
+                                    </Box>
 
-                    </Box>
-                    <Button  borderColor={` #d6d9dc`} variant='outline' borderRadius={`0px`} bgColor={`white`}>Read More ...</Button>
+                                    <Box p={3} >
 
-                </Box>
-            </Box>
+                                       <Text>{each?.body[0].children[0].text.substring(0,50) + '...'}</Text>
+
+                                    </Box>
+                                    <Button  borderColor={` #d6d9dc`} variant='outline' borderRadius={`0px`} bgColor={`white`}>Read More ...</Button>
+
+                                </Box>
+                            </Box>
+                        )
+                    }
+                    else null
+                })
+            }
 
         </>
 

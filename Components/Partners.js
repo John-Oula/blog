@@ -1,10 +1,11 @@
 import React from 'react';
-import {Box, Center, Flex, Grid, GridItem, Heading, Wrap, WrapItem} from "@chakra-ui/react";
-import Image from "next/image";
-import image from '../assets/images/slide2.png'
+import {Box, Center, Flex, Grid, GridItem, Heading, Image, Wrap, WrapItem} from "@chakra-ui/react";
+import {urlFor} from "../sanity";
 
-function Partners() {
-    let data = [image,image,image,image,image,image,image,image,image,image,image,image,image,image,image,image,]
+
+function Partners({data}) {
+
+
     return (
         <Box width={`100%`}>
             <Box width={`inherit`} bg={`gray.300`} p={4}>
@@ -16,12 +17,12 @@ function Partners() {
             </Box>
             <Grid p={4} h='fit-content' templateRows='repeat(1, 1fr)' templateColumns='repeat(4, 1fr)' gap={4} w={`inherit`}>
                 {
-                    data.slice(0,10).map(each =>{
+                    data != undefined && data[0].partner.slice(0,10).map((each,index) =>{
                         return(
-                            <GridItem colSpan={1} >
+                            <GridItem key={each._id+ index.toString()} colSpan={1} >
                                 <Flex flexGrow={1} >
                                     <Box  mr={4}  width={200} height={200}>
-                                        <Image src={each}/>
+                                        <Image src={urlFor(each.image).url()} width={`auto`} h={`auto`} />
                                     </Box>
 
                                 </Flex>

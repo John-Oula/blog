@@ -13,9 +13,9 @@ function Slider({images}) {
 
             <Carousel >
                 {
-                    images[0].carousel.map(each =>{
+                    images[0].carousel.map((each,index) =>{
                         return(
-                            <Carousel.Item>
+                            <Carousel.Item key={index}>
                                 <Image src={urlFor(each.image).url()} width={`1200px`} h={`400px`} />
 
                             </Carousel.Item>
