@@ -1,20 +1,17 @@
-import  Link  from 'next/link';
-import client from '../sanity'
-
 import {
+    Button,
+    Container,
+    Flex,
+    Input,
+    InputGroup,
+    InputLeftElement,
     Menu,
     MenuButton,
-    MenuList,
     MenuItem,
-    IconButton,
-    Box,
-    Spacer,
-    Flex,
-    MenuItemOption,
-    UnorderedList, ListIcon, ListItem, Button, FormControl, Input, InputLeftElement, InputGroup, Container
+    MenuList
 } from '@chakra-ui/react'
 
-import {CheckCircleIcon, SearchIcon} from '@chakra-ui/icons'
+import {ChevronDownIcon, SearchIcon} from '@chakra-ui/icons'
 
 
 const Navbar = ({nav}) => {
@@ -22,35 +19,45 @@ const Navbar = ({nav}) => {
     return(
 
         <Flex bgColor={`#0c3344`} width={`auto`} >
+
             <Container centerContent  maxW='container.xl'  >
 
 
             <Flex flexDirection={`row`}>
+
                 {
                     nav?.map((each,index) =>{
                         return(
 
-                            <Flex key={each._id + index.toString() }  borderColor={`white`} borderLeftWidth={`0.5px`} borderRightWidth={`0.5px`} pl={`7`} pr={`7`} bgColor={`#0c3344`} justifyContent={`center`} alignItems={'center'} color={`white`}>
+                                <Menu key={each._id + index.toString() }>
+                                    <MenuButton
 
-                                <Box p={2}>
-                                    <CheckCircleIcon />
-                                </Box>
-                                <Box  >
-                                    <Link href={'#'} fontSize={`sm`}>{each.title}</Link>
-                                </Box>
+                                        as={Button} rightIcon={<ChevronDownIcon />}
+                                        fontSize={`sm`}
+                                        borderRadius={`0px`}
+                                        borderColor={`white`} borderLeftWidth={`0.5px`} borderRightWidth={`0.5px`} pl={`5`} pr={`5`} bgColor={`#0c3344`}  alignItems={'center'} color={`white`}
+                                    
+                                        
+                                    >{each.title}</MenuButton>
+                                    <MenuList>
+                                        <MenuItem>Download</MenuItem>
+                                        <MenuItem>Create am Copy</MenuItem>
 
-                            </Flex>
+                                    </MenuList>
+                                </Menu>
+
                         )
                     })
                 }
 
-                <InputGroup ml={10}>
+                <InputGroup w={100} ml={10}>
                     <InputLeftElement
                         pointerEvents='none'
                         children={<SearchIcon  color='#BC1F28' />}
                     />
                     <Input color={`#444444`} type='text' bgColor={`white`}  border={`solid`} borderColor={`#BC1F28`} borderWidth={`1px`} />
                 </InputGroup>
+
             </Flex>
             </Container>
         </Flex>

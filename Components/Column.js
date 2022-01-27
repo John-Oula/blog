@@ -1,64 +1,44 @@
-import React from 'react';
-import {Box, Flex, Heading, Tab, TabList, TabPanel, TabPanels, Tabs, Text} from "@chakra-ui/react";
+import React, {useEffect, useState} from 'react';
+import {Box, Flex, Heading, Text} from "@chakra-ui/react";
+import {client} from "../sanity";
 
-function Column({type,post,position}) {
-    const content = [
-        {
-            content: 'Professional Training Institutes for Foreigners'
-        }, {
-            content: 'Professional Training Institutes for Foreigners'
-        }, {
-            content: 'Professional Training Institutes for Foreigners'
-        }, {
-            content: 'Professional Training Institutes for Foreigners'
-        }
-    ]
-    const tab = [
-        {
-            title:'LATEST',
-            content:[
+function Column({position}) {
+    const query = `
+*[_type == "post" && defined(heading-> position)] {
+  title,mainImage,body,_id,
+ "category: ": heading->title,
+   "image": mainImage,
+  "slug: ": slug,
+  "position": heading ->position
+}`
+    const [post,setPost] = useState([]);
+    useEffect(() =>{
 
-                {
-                    content: ' Training Institutes for Foreigners'
-                }, {
-                    content: ' Training Institutes for Foreigners'
-                }, {
-                    content: ' Training Institutes for Foreigners'
-                }, {
-                    content: 'Professional Training Institutes for Foreigners'
-                }
-            ]
-        },
-        {
-            title:'TRENDING',
-            content:[
+        client.fetch(query)
+            .then((res) =>{
+                console.log(res)
+              setPost(res)
+            })
+            .catch(error =>{
+                console.log(error)
+            })
 
-                {
-                    content: ' Training Institutes '
-                }, {
-                    content: ' Training Institutes '
-                }, {
-                    content: ' Training Institutes for Foreigners'
-                }, {
-                    content: ' Training Institutes for Foreigners'
-                }
-            ]
-        }
-    ]
+    },[])
+
 
 
     return (
 
         <>
 
-            { type != 'tab' ?
+          
                 <Flex ml={4} height={`fit-content`} maxWidth={250} width={`fit-content`}
-                   border={type === 'color' ? `solid` : type === 'transparent' ? `none` : `solid`} borderWidth={`1px`}
+                   border={`solid`} borderWidth={`1px`}
                    borderColor={` #d6d9dc`} flexDirection={`column`}>
                 <Box color={`white`}
-                     bgColor={type === 'color' ? "#0c3344" : type === 'transparent' ? `transparent` : "#0c3344"}>
+                     bgColor={ "#0c3344"}>
                     <Heading as='h4' size='md' p={5}
-                             color={type === 'color' ? `white` : type === 'transparent' ? `#444444` : `white`}>
+                             color={ `white`}>
                         {post != undefined && post[0]?.category}
                     </Heading>
                 </Box>
@@ -78,41 +58,13 @@ function Column({type,post,position}) {
                 })
                 }
             </Flex>
-            :
-                <></>
-                // <Tabs variant='unstyled' height={`fit-content`} maxWidth={250} width={`fit-content`}>
-                //     <TabList>
-                //         {
-                //             tab.map((each) =>{
-                //                 return(
-                //                     <Tab _selected={{ color: 'white', bg: '#fdb150' }}>{each.title}</Tab>
-                //                 )
-                //             })
-                //         }
-                //
-                //     </TabList>
-                //     <TabPanels>
-                //         <TabPanel>
-                //             {
-                //                 tab.map((each) =>{
-                //                     each.content.map((l) =>{
-                //                         return(
-                //                             <Text>{l.content}</Text>
-                //                         )
-                //
-                //                     })
-                //
-                //
-                //
-                //                 })
-                //             }
-                //
-                //         </TabPanel>
-                //
-                //     </TabPanels>
-                // </Tabs>
-            }
+   
+            
+
+      
         </>
+
+
 
     );
 }

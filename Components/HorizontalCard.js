@@ -1,9 +1,6 @@
-import React, {useState,useEffect} from 'react';
-import {Box, Flex, Grid, GridItem, Heading, Image,Text} from "@chakra-ui/react";
+import React, {useEffect, useState} from 'react';
+import {Box, Flex, Grid, GridItem, Heading, Image, Wrap, WrapItem} from "@chakra-ui/react";
 import {ArrowForwardIcon} from "@chakra-ui/icons";
-
-import image from '../assets/images/slide2.png'
-import { Wrap, WrapItem } from '@chakra-ui/react'
 import {urlFor} from "../sanity";
 
 function HorizontalCard({post,position}) {
@@ -15,6 +12,7 @@ function HorizontalCard({post,position}) {
         if(post){
             post.filter(each => {
                 if(each.position === position){
+                    console.log(each.category)
                     temp.push(each.category)
                 }
 
@@ -35,7 +33,7 @@ function HorizontalCard({post,position}) {
 
             <Flex p={4}>
                 <Grid h='fit-content' templateRows='repeat(1, 1fr)' templateColumns='repeat(2, 1fr)' gap={4} w={`inherit`}>
-                    {
+                    { post != undefined &&
                         post?.slice(0,5).map((each,index) =>{
                             if(each.position === position){
                                 return(

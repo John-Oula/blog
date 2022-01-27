@@ -1,6 +1,6 @@
 import React from 'react';
 import {Box, Button, Heading, Image, Text} from "@chakra-ui/react";
-import {PortableText, urlFor} from "../sanity";
+import {urlFor} from "../sanity";
 
 function PostCard({post}) {
 

@@ -14,17 +14,18 @@ export default function Home({navigation, posts, carousel, partners}) {
 
     return (
         <Box>
-            <Navbar nav={navigation} />
+
             <Container maxW='container.xl' centerContent>
                 <Slider images={carousel} />
-                <GridLayout type={`home`} data={posts} />
-                {/*<Stack direction={['column', 'row']} spacing='24px'>*/}
-                {/*    <Column type={`transparent`}/>*/}
-                {/*    <Column type={`transparent`}/>*/}
-                {/*    <Column type={`transparent`}/>*/}
-                {/*    <Column type={`transparent`}/>*/}
+                <GridLayout data={posts} />
+                <Stack direction={['column', 'row']} spacing='24px'>
+                    <Column />
+                    <Column />
+                    <Column />
+                    <Column />
 
-                {/*</Stack>*/}
+
+                </Stack>
                 <Partners data={partners}/>
 
             </Container>
@@ -36,9 +37,9 @@ export default function Home({navigation, posts, carousel, partners}) {
 
 export async function getStaticProps() {
 
-    const query = `*[_type == "menu"]{title}`
+
     const partners = await client.fetch(`*[_type == "partners"]`)
-    const navigation = await client.fetch(query)
+
     const posts = await client.fetch(`
 *[_type == "post" && defined(heading-> position)] {
   title,mainImage,body,_id,
@@ -48,16 +49,16 @@ export async function getStaticProps() {
   "position": heading ->position
 }`)
     const carousel = await client.fetch(`*[_type == "imageSlider"]`)
-    if (!navigation.length) {
+    if (!posts.length) {
         return {
             props: {
-                navigation: [],
+                posts: [],
             }
         }
     } else {
         return {
             props: {
-                navigation: navigation,
+
                 posts: posts,
                 carousel: carousel,
                 partners: partners,
