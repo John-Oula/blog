@@ -1,7 +1,4 @@
-import Head from 'next/head'
-import Image from 'next/image'
 import {Box, Container, Stack} from "@chakra-ui/react";
-import Navbar from "../Components/Navbar";
 import Slider from "../Components/Slider";
 import Column from "../Components/Column";
 import GridLayout from "../Components/GridLayout";
@@ -11,6 +8,7 @@ import React from "react";
 import {client} from "../sanity";
 
 export default function Home({navigation, posts, carousel, partners}) {
+
 
     return (
         <Box>

@@ -1,11 +1,13 @@
 import Head from 'next/head'
-import {Box} from '@chakra-ui/react'
+import {Box, SkeletonText} from '@chakra-ui/react'
 import Footer from "./Footer";
 import {client} from "../sanity";
 import Navbar from "./Navbar";
-import {useEffect, useState} from "react";
+import React, {useEffect, useState} from "react";
 import NProgress from 'nprogress';
 import Router from 'next/router';
+import SearchContext from "../contexts/SearchContext";
+import ContextWrapper from "./ContextWrapper";
 
 
 function Layout({children}) {
@@ -20,7 +22,7 @@ function Layout({children}) {
     Router.events.on('routeChangeComplete', () => {
         NProgress.done();
     });
-    const query = `*[_type == "menu"]{title}`
+    const query = `*[_type == "menu"]`
     useEffect(() => {
 
         client.fetch(query)
@@ -47,11 +49,31 @@ function Layout({children}) {
 
             <Box maxwidth={`1280px`} m={`auto`}>
                 <header>
-                    <Navbar nav={links}/>
+
+                        <Navbar nav={links}/>
+
+
 
                 </header>
                 <main>
-                    {children}
+
+                    {!searching ? children :
+
+                        <>
+                            <Box padding='6' boxShadow='lg' bg='white' width={`auto`}>
+
+                                <SkeletonText mt='4' noOfLines={4} spacing='4' />
+                            </Box>
+                            <Box padding='6' boxShadow='lg' bg='white' width={`auto`}>
+
+                                <SkeletonText mt='4' noOfLines={4} spacing='4' />
+                            </Box>
+                            <Box padding='6' boxShadow='lg' bg='white' width={`auto`}>
+
+                                <SkeletonText mt='4' noOfLines={4} spacing='4' />
+                            </Box>
+                        </>
+                    }
                     <footer>
                         <Footer/>
                     </footer>

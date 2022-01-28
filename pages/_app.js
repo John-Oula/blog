@@ -3,17 +3,24 @@ import {ChakraProvider} from '@chakra-ui/react'
 
 
 import Layout from "../components/Layout";
+import ContextWrapper from "../Components/ContextWrapper";
+
 
 function MyApp({ Component, pageProps }) {
     return (
         <>
 
                 <ChakraProvider>
-                    <Layout>
-                        <Component {...pageProps} />
-                    </Layout>
-                </ChakraProvider>
 
+                   <ContextWrapper>
+                       <Layout>
+
+                           <Component {...pageProps} />
+
+                       </Layout>
+                   </ContextWrapper>
+
+                </ChakraProvider>
         </>
     )
 }
