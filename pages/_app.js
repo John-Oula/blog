@@ -2,7 +2,7 @@ import '../styles/globals.css'
 import {ChakraProvider} from '@chakra-ui/react'
 
 
-import Layout from "../components/Layout";
+import Layout from "../Components/Layout";
 import ContextWrapper from "../Components/ContextWrapper";
 import 'nextjs-breadcrumbs/dist/index.css'
 
