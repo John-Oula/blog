@@ -17,7 +17,7 @@ import Link from 'next/link'
 import {useState} from "react";
 import {useRouter} from "next/router";
 import {Nav, Navbar} from "react-bootstrap";
-import { AiFillHome } from "react-icons/ai";
+import {AiFillHome} from "react-icons/ai";
 
 
 const NavigationBar = ({nav}) => {

@@ -1,6 +1,6 @@
 import Head from 'next/head'
 import Image from 'next/image'
-import {Box,Container} from '@chakra-ui/react'
+import {Box, Container} from '@chakra-ui/react'
 import Footer from "./Footer";
 import {client} from "../sanity";
 import NavigationBar from "./NavigationBar";

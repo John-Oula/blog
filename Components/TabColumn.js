@@ -1,6 +1,5 @@
-import React, {useEffect, useState} from 'react';
-import {Box, Tab,Center, TabList, TabPanel, TabPanels, Tabs, Text} from "@chakra-ui/react";
-import {client} from "../sanity";
+import React from 'react';
+import {Box, Tab, TabList, TabPanel, TabPanels, Tabs, Text} from "@chakra-ui/react";
 import Link from "next/link";
 
 

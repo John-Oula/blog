@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {Box, Flex, Grid,SimpleGrid, GridItem, Heading, Image, Wrap, WrapItem,LinkBox,LinkOverlay} from "@chakra-ui/react";
+import {Box, Flex, Heading, Image, LinkBox, LinkOverlay, SimpleGrid, Wrap, WrapItem} from "@chakra-ui/react";
 import {ArrowForwardIcon} from "@chakra-ui/icons";
 import {urlFor} from "../sanity";
 import NextLink from 'next/link'

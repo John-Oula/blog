@@ -1,5 +1,5 @@
 import React from 'react';
-import {Box, Center, Flex, Grid, SimpleGrid,GridItem, Heading, Image} from "@chakra-ui/react";
+import {Box, Center, Flex, Heading, Image, SimpleGrid} from "@chakra-ui/react";
 import {urlFor} from "../sanity";
 
 

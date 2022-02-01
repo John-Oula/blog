@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
-import {Box, Button, Flex, Heading, Text} from "@chakra-ui/react";
-import {client, PortableText, toPlainText} from "../sanity";
+import {Box, Flex, Heading, Text} from "@chakra-ui/react";
+import {toPlainText} from "../sanity";
 import Link from "next/link";
 
 function Column({position,post}) {

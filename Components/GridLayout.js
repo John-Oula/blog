@@ -1,10 +1,9 @@
 import React from 'react';
-import {Flex, Grid, GridItem,SimpleGrid,Box} from "@chakra-ui/react";
+import {Flex} from "@chakra-ui/react";
 import PostCard from "./PostCard";
 import Column from "./Column";
 import TabColumn from "./TabColumn";
 import HorizontalCard from "./HorizontalCard";
-import Article from "./Article";
 
 
 function GridLayout({data}) {

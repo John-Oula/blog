@@ -1,9 +1,8 @@
-import React, {useContext, useState} from 'react';
+import React, {useState} from 'react';
 import List from "../../Components/List";
 import {client} from "../../sanity";
-import {Button, Center, Container, Flex, Menu, MenuButton, MenuItem,MenuList, Text} from "@chakra-ui/react";
+import {Button, Center, Container, Flex, Menu, MenuButton, MenuItem, MenuList, Text} from "@chakra-ui/react";
 import {ChevronDownIcon} from "@chakra-ui/icons";
-
 
 
 function Search({posts}) {

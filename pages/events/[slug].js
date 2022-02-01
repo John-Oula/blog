@@ -1,11 +1,7 @@
-import {client, PortableText, urlFor} from "../../sanity";
-import {Box, Button, Container, Flex, Grid, GridItem, Heading, Text} from "@chakra-ui/react";
-import GridLayout from "../../Components/GridLayout";
+import {client} from "../../sanity";
+import {Container, Flex} from "@chakra-ui/react";
 import Article from "../../Components/Article";
 import React from "react";
-import {TimeIcon} from "@chakra-ui/icons";
-import Moment from "react-moment";
-import Link from "next/link";
 import Column from "../../Components/Column";
 
 const postQuery = `*[_type == "post" && slug.current == $slug][0]`

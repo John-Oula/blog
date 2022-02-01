@@ -1,4 +1,4 @@
-import {Box, Container,Flex, Stack} from "@chakra-ui/react";
+import {Box, Container, Flex, Stack} from "@chakra-ui/react";
 import Slider from "../Components/Slider";
 import Column from "../Components/Column";
 import GridLayout from "../Components/GridLayout";

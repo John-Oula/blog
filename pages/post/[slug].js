@@ -1,5 +1,5 @@
-import {client, urlFor} from "../../sanity";
-import {Container, Heading} from "@chakra-ui/react";
+import {client} from "../../sanity";
+import {Container} from "@chakra-ui/react";
 import GridLayout from "../../Components/GridLayout";
 import React from "react";
 
