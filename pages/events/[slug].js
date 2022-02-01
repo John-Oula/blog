@@ -6,7 +6,7 @@ import Column from "../../Components/Column";
 
 const postQuery = `*[_type == "post" && slug.current == $slug][0]`
 
-export default function Post({data}) {
+export default function BlogPost({data}) {
 
     return(
         <Container mt={7}  maxW='container.xl' centerContent>
