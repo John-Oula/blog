@@ -1,7 +1,7 @@
 import React from 'react';
 import {Carousel} from "react-bootstrap";
 
-import {Image} from '@chakra-ui/react'
+import {Image , Box} from '@chakra-ui/react'
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 import {urlFor} from '../sanity'
@@ -16,7 +16,9 @@ function Slider({images}) {
                     images[0].carousel.map((each,index) =>{
                         return(
                             <Carousel.Item key={index}>
-                                <Image src={urlFor(each.image).url()} width={`1200px`} h={`400px`} />
+                                <Box w={`100%`} h={`400px`} overflow={`hidden`} >
+                                    <Image fallbackSrc={`https://via.placeholder.com/200`} src={urlFor(each.image).url()} w={`auto`} h={`auto`} />
+                                </Box>
 
                             </Carousel.Item>
                         )

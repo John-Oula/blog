@@ -1,54 +1,85 @@
 import React, {useEffect, useState} from 'react';
-import {Tab, TabList, TabPanel, TabPanels, Tabs, Text} from "@chakra-ui/react";
+import {Box, Tab,Center, TabList, TabPanel, TabPanels, Tabs, Text} from "@chakra-ui/react";
 import {client} from "../sanity";
+import Link from "next/link";
 
-function TabColumn(props) {
-    const query = `*[_type == "menu"]{title}`
-    const [post,setPost] = useState([]);
-    useEffect(() =>{
 
-        client.fetch(query)
-            .then((res) =>{
-                console.log(res)
-                setPost(res)
-            })
-            .catch(error =>{
-                console.log(error)
-            })
+function TabColumn({post,firstPosition,secondPosition}) {
 
-    },[])
     return (
-        <Tabs variant='unstyled' height={`fit-content`} maxWidth={250} width={`fit-content`}>
-            <TabList>
-                {
-                    post.map((each) =>{
-                        return(
-                            <Tab _selected={{ color: 'white', bg: '#fdb150' }}>{each.title}</Tab>
-                        )
-                    })
-                }
 
-            </TabList>
-            <TabPanels>
-                <TabPanel>
+            <Tabs ml={5} isFitted  variant='unstyled' height={`fit-content`}  width={`100%`}>
+                <TabList  width={`100%`}>
                     {
                         post.map((each) =>{
-                            each.content.map((l) =>{
+                            if(each?.position === firstPosition || each?.position === secondPosition ){
+
                                 return(
-                                    <Text>{l.content}</Text>
+                                    <Tab key={each._id} _selected={{ color: 'white', bg: `#287b4f` }}>{each.title}</Tab>
                                 )
-
-                            })
-
-
-
+                            }
+                            else null
                         })
                     }
 
-                </TabPanel>
+                </TabList>
+                <TabPanels maxWidth={`100%`}>
+                    <TabPanel>
+                        {post?.map((each) => {
+                            if( each.position === firstPosition){
+                                return (
+                                    <>
+                                        {
+                                            each.posts?.slice(0, 5).map((one) => (
+                                                    <Box key={one._id} overflowWrap={`break-word`} borderTopWidth={`1px`}
+                                                         borderColor={` #d6d9dc`}
+                                                         color={`#696969`}>
+                                                        <Text p={3}>
+                                                            <Link href={`/events/${one.slug?.current}`}
+                                                                  passHref>{one?.title}</Link>
+                                                        </Text>
+                                                    </Box>
+                                                )
+                                            )
+                                        }
+                                    </>
+                                )
+                            }
+                            else null
+                        })
+                        }
 
-            </TabPanels>
-        </Tabs>
+                    </TabPanel>
+                    <TabPanel>
+                        {post?.map((each) => {
+                            if( each.position === secondPosition){
+                                return (
+                                    <>
+                                        {
+                                            each.posts?.slice(0, 5).map((one) => (
+                                                    <Box key={one._id} overflowWrap={`break-word`} borderTopWidth={`1px`}
+                                                         borderColor={` #d6d9dc`}
+                                                         color={`#800000`}>
+                                                        <Text p={3}>
+                                                            <Link href={`/events/${one.slug?.current}`}
+                                                                  passHref>{one?.title}</Link>
+                                                        </Text>
+                                                    </Box>
+                                                )
+                                            )
+                                        }
+                                    </>
+                                )
+                            }
+                            else null
+                        })
+                        }
+
+                    </TabPanel>
+
+                </TabPanels>
+            </Tabs>
+
     );
 }
 

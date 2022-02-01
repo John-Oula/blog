@@ -1,57 +1,84 @@
 import React, {useEffect, useState} from 'react';
-import {Box, Flex, Heading, Text} from "@chakra-ui/react";
-import {client} from "../sanity";
+import {Box, Button, Flex, Heading, Text} from "@chakra-ui/react";
+import {client, PortableText, toPlainText} from "../sanity";
+import Link from "next/link";
 
-function Column({position}) {
-    const query = `
-*[_type == "post" && defined(heading-> position)] {
-  title,mainImage,body,_id,
- "category: ": heading->title,
-   "image": mainImage,
-  "slug: ": slug,
-  "position": heading ->position
-}`
-    const [post,setPost] = useState([]);
-    useEffect(() =>{
+function Column({position,post}) {
+    const [cardTitle, setCardTitle] = useState('')
+    let temp = []
 
-        client.fetch(query)
-            .then((res) =>{
-                console.log(res)
-              setPost(res)
-            })
-            .catch(error =>{
-                console.log(error)
+
+    useEffect(()=> {
+        if (post) {
+            post.map(each => {
+                if (each.position != undefined && each.position === position) {
+
+                    temp.push(each.title)
+                }
+
+
             })
 
-    },[])
-
-
-
+            setCardTitle(temp[0])
+        }
+    })
     return (
 
         <>
 
           
-                <Flex ml={4} height={`fit-content`} maxWidth={250} width={`fit-content`}
-                   border={`solid`} borderWidth={`1px`}
+                <Flex ml={[0,0,4,4,4]} mt={[4,4,0,0,0]} mb={`5%`} height={`fit-content`}  w={`100%`}
+                   border={`solid`} borderWidth={[`0px`,0,`1px`,`1px`,`1px`]}
                    borderColor={` #d6d9dc`} flexDirection={`column`}>
                 <Box color={`white`}
-                     bgColor={ "#0c3344"}>
+                     bgColor={ "#287b4f"}>
                     <Heading as='h4' size='md' p={5}
                              color={ `white`}>
-                        {post != undefined && post[0]?.category}
+                        { cardTitle}
                     </Heading>
                 </Box>
 
-                {post?.map((each,index) => {
-                    if(each.position === position){
+                {post?.map((each) => {
+                    if(each.position != undefined && each.position === position && each.position !== 13){
                         return (
-                            <Box key={each._id + index.toString()} overflowWrap={`break-word`} borderTopWidth={`1px`} borderColor={` #d6d9dc`}
-                                 color={`#800000`}>
-                                <Text p={3}>
-                                    {each?.title}
-                                </Text>
-                            </Box>
+                            <>
+                                {
+                                    each.posts.length > 0 && each.posts?.slice(0, 7).map((one) => (
+                                            <Box key={one._id} overflowWrap={`break-word`} borderTopWidth={`1px`} borderColor={` #d6d9dc`}
+                                                 color={`#696969`}>
+                                                <Text p={3}>
+                                                    <Link href={`/events/${one.slug?.current}`}
+                                                          passHref>{one?.title}</Link>
+                                                </Text>
+                                            </Box>
+                                        )
+                                    )
+                                }
+                            </>
+                        )
+                    }
+                    else if(each.position === 13 && each.position === position){
+                        return (
+                            <>
+                                {
+                                     each.posts?.slice(0, 3).map((one) => (
+                                            <Box key={one._id} overflowWrap={`break-word`} borderTopWidth={`1px`}
+                                                 borderColor={` #d6d9dc`}
+                                                 color={`#800000`}>
+                                                <Box p={3}>
+                                                    <Text >
+                                                        <Link href={`/${one?.category}/${one.slug?.current}`}
+                                                              passHref>{one?.title}</Link>
+                                                    </Text>
+                                                    <Text color={`black`}>{toPlainText(one?.body).substring(0,300)}</Text>
+                                                    <Text mt={`2pt`} onClick={() => router.push(`/events/${one.slug.current}`)} >Read
+                                                        More ...</Text>
+                                                </Box>
+                                            </Box>
+                                        )
+                                    )
+                                }
+                            </>
                         )
                     }
                     else null

@@ -2,10 +2,10 @@ import React from 'react';
 import {Box, Button, Container, Flex, Grid, GridItem, Heading, Text} from "@chakra-ui/react";
 import {TimeIcon} from "@chakra-ui/icons";
 import Moment from "react-moment";
-import {client, PortableText,toPlainText} from "../../sanity";
+import {client, PortableText,toPlainText} from "../../../sanity";
 import Link from 'next/link'
-import Column from "../../Components/Column";
-import List from "../../Components/List";
+import Column from "../../../Components/Column";
+import List from "../../../Components/List";
 
 
 

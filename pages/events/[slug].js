@@ -1,6 +1,7 @@
 import {client, PortableText, urlFor} from "../../sanity";
 import {Box, Button, Container, Flex, Grid, GridItem, Heading, Text} from "@chakra-ui/react";
 import GridLayout from "../../Components/GridLayout";
+import Article from "../../Components/Article";
 import React from "react";
 import {TimeIcon} from "@chakra-ui/icons";
 import Moment from "react-moment";
@@ -12,55 +13,21 @@ const postQuery = `*[_type == "post" && slug.current == $slug][0]`
 export default function Post({data}) {
 
     return(
-        <Container  maxW='container.xl' centerContent>
-            <>
-                <Grid
-                    h='fit-content'
-                    templateRows='repeat(1, 1fr)'
-                    templateColumns='repeat(6, 1fr)'
-                    gap={4}
-                    w={`inherit`}
-                >
-                    <GridItem  colSpan={4}  >
-                        <Flex flexDirection={`column`} >
+        <Container mt={7}  maxW='container.xl' centerContent>
 
+            <Flex w={`100%`} flexDirection={[`column`,`column`,`row`,`row`,`row`,]}>
+                <Flex w={[`100%`,`100%`,`70%`,`70%`,`70%`,]}>
 
+                    <Article data={data} />
+                </Flex>
+                <Flex >
 
-                                <Box border={`solid`}  borderWidth={`1px`} borderColor={` #d6d9dc`} flexDirection={`column`} >
-                                    <Flex border={`solid`}  borderWidth={`1px`} borderColor={` #d6d9dc`} flexDirection={`column`} >
+                    <Column />
 
-                                        <Box border={`solid`} p={3} borderWidth={`1px`}
-                                             borderColor={` #d6d9dc`} flexDirection={`column`} >
-                                            <Heading mb={3} size={`md`} as={`h5`}>{data.post?.title}</Heading>
-                                            <Flex alignItems={`center`}>
-                                                <TimeIcon mr={3}/>
-                                                <Moment format="D MMM YYYY" >
+                </Flex>
 
-                                                    <Text fontSize={`sm`}> { data.post?._updatedAt}</Text>
-                                                </Moment>
+            </Flex>
 
-                                            </Flex>
-
-                                            <PortableText data={data.post?.body} />
-                                        </Box>
-                                    </Flex>
-                                </Box>
-
-
-
-                        </Flex>
-                    </GridItem>
-                    <GridItem colSpan={2}  >
-                        <Flex alignItems={`center`}  flexDirection={'column'}>
-                            <Column />
-
-                        </Flex>
-                    </GridItem>
-
-                </Grid>
-
-
-            </>
         </Container>
     )
 }

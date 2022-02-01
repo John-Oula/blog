@@ -1,18 +1,21 @@
 import Head from 'next/head'
-import {Box, SkeletonText} from '@chakra-ui/react'
+import Image from 'next/image'
+import {Box,Container} from '@chakra-ui/react'
 import Footer from "./Footer";
 import {client} from "../sanity";
-import Navbar from "./Navbar";
-import React, {useEffect, useState} from "react";
+import NavigationBar from "./NavigationBar";
+import React, {useContext, useEffect, useState} from "react";
 import NProgress from 'nprogress';
 import Router from 'next/router';
 import SearchContext from "../contexts/SearchContext";
-import ContextWrapper from "./ContextWrapper";
-
+import Breadcrumbs from 'nextjs-breadcrumbs';
+import logo from '../assets/images/logo.jpg'
 
 function Layout({children}) {
 
     const [links, setLinks] = useState([]);
+    const [footer, setFooter] = useState([]);
+    const {searching,searchResults,message} = useContext(SearchContext)
     NProgress.configure({showSpinner: false});
 
     Router.events.on('routeChangeStart', () => {
@@ -22,17 +25,29 @@ function Layout({children}) {
     Router.events.on('routeChangeComplete', () => {
         NProgress.done();
     });
-    const query = `*[_type == "menu"]`
+    const headerQuery = `*[_type == "menu" ] {title,_id,slug,submenu,dropdown,list,single,
+"category": category->title }`
+    const footerQuery = `*[_type == "footer" ] {title,_id,slug }`
     useEffect(() => {
 
-        client.fetch(query)
+        client.fetch(headerQuery)
             .then((res) => {
-                console.log(res)
+
                 setLinks(res)
+                client.fetch(footerQuery)
+                    .then((res) => {
+
+                        setFooter(res)
+                    })
+                    .catch(error => {
+                        console.log(error)
+                    })
             })
             .catch(error => {
                 console.log(error)
             })
+
+
 
     }, [])
 
@@ -47,37 +62,52 @@ function Layout({children}) {
                       crossOrigin='anonymous' referrerPolicy='no-referrer'/>
             </Head>
 
-            <Box maxwidth={`1280px`} m={`auto`}>
-                <header>
+            <Box    h={`100%`} w={`100%`}>
 
-                        <Navbar nav={links}/>
-
+              <header>
 
 
-                </header>
-                <main>
+                      <Box w={`100%`} h={`90`} overflow={`hidden`}  bgColor={`#287b4f`}>
+                          <Container maxW='container.xl' >
+                    <Image  height={100} width={100} src={logo}/>
+                          </Container>
+                </Box>
+                  <NavigationBar nav={links}/>
 
-                    {!searching ? children :
 
-                        <>
-                            <Box padding='6' boxShadow='lg' bg='white' width={`auto`}>
 
-                                <SkeletonText mt='4' noOfLines={4} spacing='4' />
-                            </Box>
-                            <Box padding='6' boxShadow='lg' bg='white' width={`auto`}>
+              </header>
+              <main>
+                  <Container  maxW='container.xl' >
+                  <Breadcrumbs
+                      inactiveItemStyle = {
+                          {background: 'none',    display: `flex`,}
+                      }
+                      listStyle = {
+                          {background: 'none',
+                          display: `flex`,
+                              flexDirection: `row`,
+                              listDecoration: `none`,
+                              fontSize: `14px`,
+                              margin: `5px`
 
-                                <SkeletonText mt='4' noOfLines={4} spacing='4' />
-                            </Box>
-                            <Box padding='6' boxShadow='lg' bg='white' width={`auto`}>
+                          }
+                      }
+                      listClassName={`list`}
+                      transformLabel={(title) =>  '|'+ "   " + title }
+                      omitIndexList={[0,1]}
+                      omitRootLabel
+                      // useDefaultStyle={true}
+                      replaceCharacterList={[{ from: '.', to: ' ' },{ from: '-', to: ' ' },]} />
+                  </Container>
+                  { children }
 
-                                <SkeletonText mt='4' noOfLines={4} spacing='4' />
-                            </Box>
-                        </>
-                    }
-                    <footer>
-                        <Footer/>
-                    </footer>
-                </main>
+
+              </main>
+                <footer>
+                    <Footer data={footer} />
+                </footer>
+
             </Box>
         </>
     )

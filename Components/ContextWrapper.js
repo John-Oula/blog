@@ -3,23 +3,24 @@ import SearchContext from "../contexts/SearchContext";
 import {useState} from "react";
 
 function ContextWrapper({children}) {
-    
-    const [searchResults,setSearchResults] = useState([])
-    const [searching,setSearching] = useState(false)
+
+    const [searchResults, setSearchResults] = useState([])
+    const [searching, setSearching] = useState(false)
+    const [message, setMessage] = useState('')
 
     const values = {
         searchResults,
         setSearchResults,
         searching,
-        setSearching
+        setSearching, message, setMessage
     }
     return (
         <SearchContext.Provider value={values}>
-            { children }
-            
+            {children}
+
         </SearchContext.Provider>
     )
-    
+
 }
 
 export default ContextWrapper

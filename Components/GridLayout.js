@@ -1,65 +1,38 @@
-import React, {useContext} from 'react';
-import {Flex, Grid, GridItem, Skeleton, SkeletonText,Box} from "@chakra-ui/react";
+import React from 'react';
+import {Flex, Grid, GridItem,SimpleGrid,Box} from "@chakra-ui/react";
 import PostCard from "./PostCard";
 import Column from "./Column";
+import TabColumn from "./TabColumn";
 import HorizontalCard from "./HorizontalCard";
-import SearchContext from "../contexts/SearchContext";
+import Article from "./Article";
 
 
 function GridLayout({data}) {
-    const {searching} = useContext(SearchContext)
+
     return (
         <>
 
-            <Grid h='fit-content' templateRows='repeat(1, 1fr)' templateColumns='repeat(6, 1fr)' gap={4} w={`inherit`}>
-                <>
-
-                    <GridItem colSpan={4}>
-                        <Flex flexDirection={`column`} mt={4}>
-
-                                { !searching ?
-                                <>
-                                    <Flex mb={4} flexDirection={`row`}>
-                                        <PostCard post={data}/>
-                                        <Column position={2}/>
-                                    </Flex>
-
-
-
-                                    <HorizontalCard position={3} post={data}/>
-                                    <HorizontalCard position={4} post={data}/>
-                                    <HorizontalCard position={5} post={data}/>
-
-                                </>
-                                    :
-                                    <>
-                                    <Box padding='6' boxShadow='lg' bg='white' width={`auto`}>
-
-                                    <SkeletonText mt='4' noOfLines={4} spacing='4' />
-                                    </Box>
-                                    <Box padding='6' boxShadow='lg' bg='white' width={`auto`}>
-
-                                    <SkeletonText mt='4' noOfLines={4} spacing='4' />
-                                    </Box>
-                                    <Box padding='6' boxShadow='lg' bg='white' width={`auto`}>
-
-                                    <SkeletonText mt='4' noOfLines={4} spacing='4' />
-                                    </Box>
-                                    </>
-                                }
-                        </Flex>
-                    </GridItem>
-
-                </>
-
-                <GridItem colSpan={2}  >
-                    <Flex alignItems={`center`}  flexDirection={'column'}>
-                        <Column type={`transparent`} />
-                        <Column type={`tab`} />
+            <Flex w={`100%`} flexDirection={[`column`,`column`,`row`,`row`,`row`,]}>
+                <Flex flexDirection={`column`} w={[`100%`,`100%`,`80%`,`80%`,`80%`,]}>
+                    <Flex flexDirection={[`column`,`column`,`row`,`row`,`row`,]}>
+                        <PostCard post={data} position={1}/>
+                        <Column post={data}  position={2}/>
                     </Flex>
-                </GridItem>
 
-            </Grid>
+                    <HorizontalCard position={3} post={data}/>
+                    <HorizontalCard position={4} post={data}/>
+                    <HorizontalCard position={5} post={data}/>
+                </Flex>
+                <Flex flexDirection={`column`}  w={[`100%`,`100%`,`20%`,`20%`,`20%`,]} >
+
+                    <Column post={data} key={1} position={10} />
+                    <TabColumn post={data} key={2} firstPosition={11} secondPosition={12} />
+                    <Column post={data} key={5} position={13} />
+                    <Column post={data} key={5} position={14} />
+
+                </Flex>
+
+            </Flex>
 
 
         </>

@@ -4,23 +4,23 @@ import {ChakraProvider} from '@chakra-ui/react'
 
 import Layout from "../components/Layout";
 import ContextWrapper from "../Components/ContextWrapper";
-
+import 'nextjs-breadcrumbs/dist/index.css'
 
 function MyApp({ Component, pageProps }) {
     return (
         <>
-
+            <ContextWrapper>
                 <ChakraProvider>
 
-                   <ContextWrapper>
+
                        <Layout>
 
                            <Component {...pageProps} />
 
                        </Layout>
-                   </ContextWrapper>
 
-                </ChakraProvider>
+
+                </ChakraProvider> </ContextWrapper>
         </>
     )
 }
